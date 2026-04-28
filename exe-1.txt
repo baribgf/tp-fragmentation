@@ -41,3 +41,13 @@ OPTIONS (schema_name 'public', table_name 'department');
 )
 SERVER site3_server
 OPTIONS (schema_name 'public', table_name 'department');
+
+d)
+SELECT name FROM (SELECT * FROM dept1
+UNION ALL
+SELECT * FROM dept4
+UNION ALL
+SELECT * FROM dept5) d
+JOIN employee_full e
+ON d.dno = e.dno
+WHERE d.budget > 600000;
