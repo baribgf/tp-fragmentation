@@ -1,0 +1,88 @@
+services:
+
+  # ---- SITE 1: New York ----
+  site1:
+    image: postgres:16
+    container_name: site1_ny
+    environment:
+      POSTGRES_DB: company_ny
+      POSTGRES_USER: site1_user
+      POSTGRES_PASSWORD: site1pass
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./init-scripts/site1:/docker-entrypoint-initdb.d
+    networks:
+      - db-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U site1_user -d company_ny"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ---- SITE 2: London ----
+  site2:
+    image: postgres:16
+    container_name: site2_london
+    environment:
+      POSTGRES_DB: company_london
+      POSTGRES_USER: site2_user
+      POSTGRES_PASSWORD: site2pass
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./init-scripts/site2:/docker-entrypoint-initdb.d
+    networks:
+      - db-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U site2_user -d company_london"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ---- SITE 3: Tokyo ----
+  site3:
+    image: postgres:16
+    container_name: site3_tokyo
+    environment:
+      POSTGRES_DB: company_tokyo
+      POSTGRES_USER: site3_user
+      POSTGRES_PASSWORD: site3pass
+    ports:
+      - "5435:5432"
+    volumes:
+      - ./init-scripts/site3:/docker-entrypoint-initdb.d
+    networks:
+      - db-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U site3_user -d company_tokyo"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ---- CENTRAL: Coordinator ----
+  central:
+    image: postgres:16
+    container_name: central_coordinator
+    environment:
+      POSTGRES_DB: company_central
+      POSTGRES_USER: central_user
+      POSTGRES_PASSWORD: centralpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init-scripts/central:/docker-entrypoint-initdb.d
+    networks:
+      - db-network
+    depends_on:
+      site1:
+        condition: service_healthy
+      site2:
+        condition: service_healthy
+      site3:
+        condition: service_healthy
+
+networks:
+  db-network:
+    driver: bridge
+
