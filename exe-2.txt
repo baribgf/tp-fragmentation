@@ -1,0 +1,30 @@
+a-b)
+1. psql -h localhost -p 5433 -U site1_user -d company_ny
+2. CREATE TABLE product (
+  prodid INTEGER PRIMARY KEY,
+  prodname VARCHAR(50),
+  category VARCHAR(50),
+  price NUMERIC(10,2),
+  warehouse VARCHAR(50)
+);
+3. INSERT INTO product VALUES
+(1, 'Laptop', 'Electronics', 1200, 'Paris'),
+(2, 'Mouse', 'Electronics', 25, 'Paris'),
+(3, 'Keyboard', 'Electronics', 75, 'Paris'),
+(10, 'Printer', 'Office', 200, 'Paris');
+
+4. psql -h localhost -p 5434 -U site2_user -d company_london
+5. repeat (2)
+6. INSERT INTO product VALUES
+(4, 'Chair', 'Furniture', 150, 'Berlin'),
+(5, 'Desk', 'Furniture', 300, 'Berlin'),
+(6, 'Lamp', 'Furniture', 80, 'Berlin'),
+(11, 'Scanner', 'Office', 180, 'Berlin');
+
+7. psql -h localhost -p 5435 -U site3_user -d company_tokyo
+8. repeat (2)
+9. INSERT INTO product VALUES
+(7, 'Phone', 'Electronics', 900, 'Madrid'),
+(8, 'Tablet', 'Electronics', 600, 'Madrid'),
+(9, 'Monitor', 'Electronics', 400, 'Madrid'),
+(12, 'Router', 'Networking', 130, 'Madrid');
