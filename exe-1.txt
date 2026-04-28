@@ -11,6 +11,6 @@ a-b)
 5. repeat (2)
 6. INSERT INTO department VALUES (4, 'Engineering', 500000);
 
-7. psql -h localhost -p 5435 -U site3_user -d company_tokio
+7. psql -h localhost -p 5435 -U site3_user -d company_tokyo
 8. repeat (2)
 9. INSERT INTO department VALUES (1, 'Headquarters', 1000000);
