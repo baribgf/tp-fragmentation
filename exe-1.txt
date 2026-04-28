@@ -14,3 +14,30 @@ a-b)
 7. psql -h localhost -p 5435 -U site3_user -d company_tokyo
 8. repeat (2)
 9. INSERT INTO department VALUES (1, 'Headquarters', 1000000);
+
+c)
+1. psql -h localhost -p 5432 -U central_user -d company_central
+
+2. CREATE FOREIGN TABLE dept5 (
+    dno INTEGER,
+    dname VARCHAR (50),
+    budget NUMERIC (12, 2)
+)
+SERVER site1_server
+OPTIONS (schema_name 'public', table_name 'department');
+
+3. CREATE FOREIGN TABLE dept4 (
+    dno INTEGER,
+    dname VARCHAR (50),
+    budget NUMERIC (12, 2)
+)
+SERVER site2_server
+OPTIONS (schema_name 'public', table_name 'department');
+
+4. CREATE FOREIGN TABLE dept1 (
+    dno INTEGER,
+    dname VARCHAR (50),
+    budget NUMERIC (12, 2)
+)
+SERVER site3_server
+OPTIONS (schema_name 'public', table_name 'department');
